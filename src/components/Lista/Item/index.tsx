@@ -1,8 +1,8 @@
-export default function ItemLista(){
+export default function ItemLista(props){
     return (
         <ul>
             <li>
-                <h3>React</h3>
+                <h3>{props}</h3>
                 <span></span>
             </li>
             <li>
