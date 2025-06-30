@@ -1,20 +1,30 @@
 import { useState } from "react";
 import Button from "../Button";
+
+//import { algumaCoisa } from "../Lista"
 //import {Lista} from "../Lista"
 
-function Formulario() {
+export type Tarefa = {
+  tarefa: string;
+  tempo: string;
+};
 
-    const [tarefa, setTarefa] = useState('')
-    const [tempo, setTempo] = useState('')
-    const [valoresSalvos, setValoresSalvos] = useState<string[][]>([])
+interface FormularioProps {
+  valoresSalvos: Tarefa[];
+  setValoresSalvos: React.Dispatch<React.SetStateAction<Tarefa[]>>;
+  //setValoresSalvos((prev) => [...prev, novaTarefa]); setStateAction poderia ser dessa forma tambem
+}
 
+function Formulario({ valoresSalvos, setValoresSalvos }: FormularioProps) {
+  const [tarefa, setTarefa] = useState('');
+  const [tempo, setTempo] = useState('');
 
-    const aoSalvar = () => {
-        setValoresSalvos([...valoresSalvos, [tarefa, tempo]])
-        setTarefa('')
-        setTempo('')
-        console.log(valoresSalvos)
-    }
+  const aoSalvar = () => {
+    const novaTarefa: Tarefa = { tarefa, tempo };
+    setValoresSalvos([...valoresSalvos, novaTarefa]);
+    setTarefa('');
+    setTempo('');
+  };
 
     return (
         <form className="w-full mx-auto rounded-lg bg-cyan-800 border border-gray-200 p-5 text-white font-light mb-3 order-1 col-span-2">
