@@ -17,7 +17,7 @@ function Home() {
             <div className=' w-full justify-self-center flex flex-col md:grid grid-cols-4 grid-rows-2 md:gap-4 md:w-xl'>
                 <Formulario setValoresSalvos={setValoresSalvos} valoresSalvos={valoresSalvos} />
                 <Cronometro/>
-                <Lista tarefa={valoresSalvos}/>
+                <Lista tarefas={valoresSalvos}/>
             </div>
         </div>
     )

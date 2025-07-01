@@ -1,35 +1,45 @@
+import { useState } from "react";
 import Button from "../Button";
 import Relogio from "./Relogio";
 
+export default function Cronometro() {    
 
-let decSec = 0;
-let contagem: boolean;
+    const [timerIsRunning, setTimerIsRunning] = useState(false);
 
-function logicaCronometro() {
-decSec ++;
+    const [currentTime, setCurrentTime] = useState({
+        hours: 0,
+        minutes: 0,
+        seconds: 0
+    })
 
-  const seg = Math.floor(decSec / 10) % 60;
-  const min = Math.floor(decSec / 600) % 60;
-  const horas = Math.floor(decSec / 36000) % 24;
-
-return {horas, min, seg};
-}
-
-export default function Cronometro() {
-
-    const tempo = logicaCronometro()
+    let timerCounter = 0      
 
     const iniciaRelogio = () => {
-        if(contagem === true){return console.log(tempo);}
-        contagem = true;
-        console.log(tempo)
-    }   
+        handleTimer();
+        setTimerIsRunning(() => {
+            return timerIsRunning ? false : true;
+        });
+    }    
+
+    const handleTimer = () => {
+        if (timerIsRunning) {
+            timerCounter++;
+            const seconds = Math.floor(timerCounter / 10) % 60;
+            const minutes = Math.floor(timerCounter / 600) % 60;
+            const hours = Math.floor(timerCounter / 36000) % 24;
+            setCurrentTime({
+                hours : hours,
+                minutes : minutes,
+                seconds : seconds
+            })
+        }
+    }
 
     return (
-        <div className="w-full mx-auto justify-items-center rounded-lg bg-cyan-800 border border-gray-200  text-white font-light mb-3 p-5 order-2 md:order-3 row-start-2 col-span-2">
+        <div className="w-full mx-auto justify-items-center rounded-lg bg-cyan-800 border border-gray-200 text-white font-light mb-3 p-5 order-2 md:order-3 row-start-2 col-span-2">
             <p>Cronometro</p>
             <div>
-                <Relogio horas={tempo.horas} minutos={tempo.min} segundos={tempo.seg}/>
+                <Relogio horas={currentTime.hours} minutos={currentTime.minutes} segundos={currentTime.seconds}/>
             </div>
             <Button onClick={iniciaRelogio}>Adicionar</Button>
         </div>
