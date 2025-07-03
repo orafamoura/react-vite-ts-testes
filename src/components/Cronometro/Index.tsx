@@ -1,25 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../Button";
 import Relogio from "./Relogio";
+
+    let timerCounter = 0      
 
 export default function Cronometro() {    
 
     const [timerIsRunning, setTimerIsRunning] = useState(false);
-
     const [currentTime, setCurrentTime] = useState({
         hours: 0,
         minutes: 0,
         seconds: 0
     })
 
-    let timerCounter = 0      
-
     const iniciaRelogio = () => {
-        handleTimer();
+        handleTimer(); 
         setTimerIsRunning(() => {
             return timerIsRunning ? false : true;
         });
-    }    
+    }
+
+    const pararRelogio = () => {
+        setTimerIsRunning(false)
+    };
+
+    useEffect(() => {
+        if (timerIsRunning) {
+        const interval = setInterval(() => {
+            handleTimer();
+        }, 100);
+        return () => clearInterval(interval);
+        }
+    }, [timerIsRunning]);
 
     const handleTimer = () => {
         if (timerIsRunning) {
@@ -42,6 +54,7 @@ export default function Cronometro() {
                 <Relogio horas={currentTime.hours} minutos={currentTime.minutes} segundos={currentTime.seconds}/>
             </div>
             <Button onClick={iniciaRelogio}>Adicionar</Button>
+            <Button onClick={pararRelogio}>Parar</Button>
         </div>
     )
 }
