@@ -15,6 +15,7 @@ export default function Cronometro() {
 
     const iniciaRelogio = () => {
         setTimerIsRunning(true)
+        setTentativa('parar')
     }
 
     const pararRelogio = () => {
@@ -29,18 +30,16 @@ export default function Cronometro() {
             seconds : 0
         })
         setTimerIsRunning(false)
-        setTentativa('parar')
-    }
+        }
 
     const logicaBotoes = () => {
         switch (tentativa) {
             
             case 'parar' :
-                console.log(tentativa)
                 setTentativa('reiniciar')
                 return pararRelogio();
             case 'reiniciar' :
-                console.log(tentativa)
+                setTentativa('parar')
                 return reiniciarRelogio();
         }
     }
