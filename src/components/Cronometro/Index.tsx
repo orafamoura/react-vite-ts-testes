@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import Button from "../Button";
 import Relogio from "./Relogio";
-    
+
 export default function Cronometro() {    
 
     const [timerIsRunning, setTimerIsRunning] = useState(false);
@@ -10,16 +10,25 @@ export default function Cronometro() {
         minutes: 0,
         seconds: 0
     })
-    const [tentativa, setTentativa] = useState('parar')
+    const [startClock, setStartClock] = useState('Iniciar')
+    const [stopClock, setStopClock] = useState('Parar')
     const timerCounter = useRef(0);
 
     const iniciaRelogio = () => {
         setTimerIsRunning(true)
-        setTentativa('parar')
+        setStartClock('Iniciar')
+        if(timerIsRunning === true && stopClock === 'Reiniciar') {
+            setStartClock('Iniciar')
+            setStopClock('Parar')
+        } else if (timerIsRunning === false && stopClock === 'Reiniciar') {
+            setStopClock('Parar')
+        }
+        
     }
 
     const pararRelogio = () => {
         setTimerIsRunning(false)
+        setStartClock('Continuar')
     };
 
     const reiniciarRelogio = () => {
@@ -30,16 +39,16 @@ export default function Cronometro() {
             seconds : 0
         })
         setTimerIsRunning(false)
-        }
+        setStartClock('Iniciar')
+
+    }
 
     const logicaBotoes = () => {
-        switch (tentativa) {
-            
-            case 'parar' :
-                setTentativa('reiniciar')
+        switch (stopClock) {
+            case 'Parar' :
+                setStopClock('Reiniciar')
                 return pararRelogio();
-            case 'reiniciar' :
-                setTentativa('parar')
+            case 'Reiniciar' :
                 return reiniciarRelogio();
         }
     }
@@ -47,7 +56,6 @@ export default function Cronometro() {
     useEffect(() => {
         if (timerIsRunning) {
         const interval = setInterval(() => {
-           const handleTimer = () => {
                 if (timerIsRunning) {
                     timerCounter.current ++;
                     const seconds = Math.floor(timerCounter.current / 10) % 60;
@@ -59,7 +67,6 @@ export default function Cronometro() {
                         seconds : seconds
                     })
                 }
-            }; handleTimer()
         }, 100);
         return () => clearInterval(interval);
         }
@@ -71,8 +78,8 @@ export default function Cronometro() {
             <div>
                 <Relogio horas={currentTime.hours} minutos={currentTime.minutes} segundos={currentTime.seconds}/>
             </div>
-            <Button onClick={iniciaRelogio}>Adicionar</Button>
-            <Button onClick={logicaBotoes}>{tentativa}</Button>
+            <Button onClick={iniciaRelogio}>{startClock}</Button>
+            <Button onClick={logicaBotoes}>{stopClock}</Button>
         </div>
     )
 }

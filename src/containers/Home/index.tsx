@@ -1,4 +1,4 @@
-import Cronometro from '../../components/Cronometro';
+import Cronometro from '../../components/Cronometro/Index';
 import Formulario from '../../components/Formulario';
 import Lista from '../../components/Lista';
 import Titulo from '../../components/Titulo';
