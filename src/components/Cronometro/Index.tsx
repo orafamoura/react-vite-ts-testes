@@ -16,6 +16,7 @@ export default function Cronometro() {
 
     const iniciaRelogio = () => {
         setTimerIsRunning(true)
+        setStartClock('Parar')
         setStartClock('Iniciar')
         if(timerIsRunning === true && stopClock === 'Reiniciar') {
             setStartClock('Iniciar')
@@ -23,12 +24,13 @@ export default function Cronometro() {
         } else if (timerIsRunning === false && stopClock === 'Reiniciar') {
             setStopClock('Parar')
         }
-        
     }
 
     const pararRelogio = () => {
         setTimerIsRunning(false)
-        setStartClock('Continuar')
+        if(timerIsRunning === true) {
+            setStartClock('Continuar')
+        }
     };
 
     const reiniciarRelogio = () => {
@@ -40,13 +42,18 @@ export default function Cronometro() {
         })
         setTimerIsRunning(false)
         setStartClock('Iniciar')
+        setStopClock('Parar')
 
     }
 
     const logicaBotoes = () => {
         switch (stopClock) {
             case 'Parar' :
-                setStopClock('Reiniciar')
+                if ( timerIsRunning === false){
+                    setStopClock('Parar')
+                } else {
+                    setStopClock('Reiniciar')
+                }
                 return pararRelogio();
             case 'Reiniciar' :
                 return reiniciarRelogio();
@@ -78,8 +85,10 @@ export default function Cronometro() {
             <div>
                 <Relogio horas={currentTime.hours} minutos={currentTime.minutes} segundos={currentTime.seconds}/>
             </div>
+            <div className="flex gap-4">
             <Button onClick={iniciaRelogio}>{startClock}</Button>
             <Button onClick={logicaBotoes}>{stopClock}</Button>
+            </div>
         </div>
     )
 }
