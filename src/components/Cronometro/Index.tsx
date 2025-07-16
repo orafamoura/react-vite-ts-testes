@@ -2,7 +2,15 @@ import { useState, useEffect, useRef } from "react";
 import Button from "../Button";
 import Relogio from "./Relogio";
 
-export default function Cronometro() {    
+interface CronometroProps {
+    valorRelogio: ( valores: {
+        hours: number,
+        minutes: number,
+        seconds: number
+    }) => void
+}
+
+export default function Cronometro({valorRelogio}: CronometroProps) {    
 
     const [timerIsRunning, setTimerIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState({
@@ -34,6 +42,14 @@ export default function Cronometro() {
     };
 
     const reiniciarRelogio = () => {
+        valorRelogio(currentTime)
+
+         /*valorRelogio = {
+            hours: currentTime.hours,
+            minutes: currentTime.minutes,
+            seconds: currentTime.seconds
+        }*/
+
         timerCounter.current = 0
         setCurrentTime({
             hours: 0,

@@ -6,7 +6,7 @@ import Button from "../Button";
 
 export type Tarefa = {
   tarefa: string;
-  tempo: string;
+  tempo: number[];
 };
 
 interface FormularioProps {
@@ -17,13 +17,13 @@ interface FormularioProps {
 
 function Formulario({ valoresSalvos, setValoresSalvos }: FormularioProps) {
   const [tarefa, setTarefa] = useState('');
-  const [tempo, setTempo] = useState('');
+  //const [tempo, setTempo] = useState('');
 
   const aoSalvar = () => {
     const novaTarefa: Tarefa = { tarefa, tempo };
     setValoresSalvos([...valoresSalvos, novaTarefa]);
     setTarefa('');
-    setTempo('');
+    //setTempo('');
   };
 
     return (
@@ -36,14 +36,6 @@ function Formulario({ valoresSalvos, setValoresSalvos }: FormularioProps) {
                     onChange={(e) => setTarefa(e.target.value)}
                     className="bg-white-800" 
                     placeholder="Digite o nome do estudo realizado"/>
-            </div>
-            <div>
-                <label></label>
-                <input 
-                    type="time"
-                    value={tempo}
-                    onChange={(e) => setTempo(e.target.value)}
-                    placeholder="adicione o horario" />
             </div>
             <Button onClick={aoSalvar}>registrar</Button>
         </form>
