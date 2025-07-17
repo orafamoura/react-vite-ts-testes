@@ -1,4 +1,3 @@
-import Cronometro from '../../components/Cronometro/Index';
 import Formulario from '../../components/Formulario';
 import Lista from '../../components/Lista';
 import Titulo from '../../components/Titulo';
@@ -10,18 +9,12 @@ import { useState } from 'react';
 function Home() {
 
         const [valoresSalvos, setValoresSalvos] = useState<Tarefa[]>([]);
-        //const [valoresRelogio, setValoresRelogio] = useState<number>()
-
-        const valorRelogio = (novosValores: number) => {
-            setValoresSalvos(valoresSalvos)
-        }
 
     return(
         <div className='w-full'>
             <Titulo/>
             <div className=' w-full justify-self-center flex flex-col md:grid grid-cols-4 grid-rows-2 md:gap-4 md:w-xl'>
                 <Formulario setValoresSalvos={setValoresSalvos} valoresSalvos={valoresSalvos} />
-                <Cronometro valorRelogio={valorRelogio}/>
                 <Lista tarefas={valoresSalvos}/>
             </div>
         </div>

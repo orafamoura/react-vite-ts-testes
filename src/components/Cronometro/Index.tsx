@@ -3,14 +3,10 @@ import Button from "../Button";
 import Relogio from "./Relogio";
 
 interface CronometroProps {
-    valorRelogio: ( valores: {
-        hours: number,
-        minutes: number,
-        seconds: number
-    }) => void
+  onSave: (tempo: string) => void;
 }
 
-export default function Cronometro({valorRelogio}: CronometroProps) {    
+export default function Cronometro({onSave}: CronometroProps) {    
 
     const [timerIsRunning, setTimerIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState({
@@ -41,15 +37,10 @@ export default function Cronometro({valorRelogio}: CronometroProps) {
         }
     };
 
+    const tempoFormatado = `${String(currentTime.hours).padStart(2, '0')}:${String(currentTime.minutes).padStart(2, '0')}:${String(currentTime.seconds).padStart(2, '0')}`;
+
     const reiniciarRelogio = () => {
-        valorRelogio(currentTime)
-
-         /*valorRelogio = {
-            hours: currentTime.hours,
-            minutes: currentTime.minutes,
-            seconds: currentTime.seconds
-        }*/
-
+        onSave(tempoFormatado)
         timerCounter.current = 0
         setCurrentTime({
             hours: 0,
