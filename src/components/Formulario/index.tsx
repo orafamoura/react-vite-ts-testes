@@ -28,9 +28,9 @@ function Formulario({ valoresSalvos, setValoresSalvos }: FormularioProps) {
   };
 
     return (
-        <div>
-            <form className="w-full mx-auto rounded-lg bg-cyan-800 border border-gray-200 p-5 text-white font-light mb-3 order-1 col-span-2">
-                <div className="flex flex-col">
+        <div className="w-full col-span-2 flex flex-col gap-4">
+            <form className="w-full mx-auto rounded-lg bg-cyan-800 border border-gray-200 p-5 text-white font-light order-1">
+                <div className="">
                     <label>Escreva o que estudou</label>
                     <input 
                         type="text"

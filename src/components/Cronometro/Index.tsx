@@ -87,7 +87,7 @@ export default function Cronometro({onSave}: CronometroProps) {
     }, [timerIsRunning]);
 
     return (
-        <div className="w-full mx-auto justify-items-center rounded-lg bg-cyan-800 border border-gray-200 text-white font-light mb-3 p-5 order-2 md:order-3 row-start-2 col-span-2">
+        <div className="w-full mx-auto justify-items-center rounded-lg bg-cyan-800 border border-gray-200 text-white font-light p-5 order-2 md:order-3 row-start-2 col-span-2">
             <p>Cronometro</p>
             <div>
                 <Relogio horas={currentTime.hours} minutos={currentTime.minutes} segundos={currentTime.seconds}/>
