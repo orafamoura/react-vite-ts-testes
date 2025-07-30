@@ -1,5 +1,9 @@
-export default function Titulo(){
-    return(
-        <h1 className="text-2xl text-center my-4">Pomodoro Play</h1>
-    )
+type tituloProps = {
+  title: string;
+};
+
+export const Titulo = ({ title }: tituloProps) => {
+  return (
+    <h1 className="text-2xl text-center my-4">{title}</h1>
+  );
 }
